@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Khit Thit Movie</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -86,7 +86,6 @@
             font-size: 18px;
         }
     }
-
     .footer {
         position: fixed;
         left: 0;
@@ -94,6 +93,7 @@
         width: 100%;
         color: white;
     }
+   
     </style>
 </head>
 
@@ -102,7 +102,7 @@
 
 
         <div class="col d-none d-sm-block">
-            <nav class="navbar navbar-expand-md bg-light navbar-light shadow-sm ">
+            <nav class="navbar navbar-expand-md bg-light navbar-light shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <i class="fas fa-home"></i> Khit Thit

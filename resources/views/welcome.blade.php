@@ -2,37 +2,37 @@
 @section('content')
 <div class="container">
     <div class="row">
-    
 
         @foreach($movies as $movie)
-        <div class="col-6 col-md-3 pt-2">
-            <a href="{{action('FrontendController@view',$movie->id)}}" style="text-decoration: none;color:black;">
-                <div class="card">
-                    <img class="card-img-top img-fluid" style="height:300px;"  src="{{$movie->poster}}" alt="Card image" style="width:100%">
-                    <div class="p-2">
-                        @if($movie->type == 'series')
-                        @if($movie->country == 'USA')
-                        <span class="pull-left">E-{{$movie->ktid}} </span> <span class="pull-right"><i
-                                class="fa fa-star"></i> {{$movie->imdbrating}} <br></span>
-                        @endif
-                        @else
-                        <span class="pull-left">{{$movie->ktid}}  </span> <span class="pull-right"><i
-                                class="fa fa-star"></i> {{$movie->imdbrating}} <br></span>
-                        @endif
 
-                        <span class='clearfix'></span>
-                        <span>{{$movie->title}}</span> <br>
-                        <span>{{$movie->year}}</span>
+        <div class="col-6 col-lg-3 col-md-4 col-sm-6 m-0">
+        <a href="{{action('FrontendController@view',$movie->id)}}" style="text-decoration: none;color:black;">
+            <div class="card text-white bg-primary mt-2">
+                <img class="card-img-top" src="{{$movie->poster}}" alt="" height="300px;">
+                <div class="card-body">
+                    @if($movie->type == 'series')
+                    @if($movie->country == 'USA')
+                    <span class="pull-left">E-{{$movie->ktid}} </span> <span class="pull-right"><i class="fa fa-star"></i> {{$movie->imdbrating}} <br></span>
+                    @endif
+                    @else
+                    <span class="pull-left">{{$movie->ktid}} </span> <span class="pull-right"><i class="fa fa-star"></i> {{$movie->imdbrating}} <br></span>
+                    @endif
+                    <span class='clearfix'></span>
+                    <h4 class="card-title">
+                        {{mb_strimwidth($movie->title, 0, 15,'...')}}
+                    </h4>
+                    <p class="card-text">{{$movie->year}}</p>
 
-                        @if($movie->type == 'series')
-                        <span class="float-right">{{$movie->type}}</span>
-                        @endif
-                    </div>
+
+                    @if($movie->type == 'series')
+                    <span class="float-right">{{$movie->type}}</span>
+                    @endif
                 </div>
+            </div>
             </a>
-
         </div>
         @endforeach
+
     </div>
 
     <hr>
@@ -43,8 +43,7 @@
 
 <!-- Modal -->
 <form method="POST" action="{{ route('login') }}">
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -58,12 +57,10 @@
                     @csrf
 
                     <div class="form-group row">
-                        <label for="email"
-                            class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <label for="email" class="col-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                             @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -77,9 +74,7 @@
                         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                         <div class="col-md-6">
-                            <input id="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror" name="password" required
-                                autocomplete="current-password">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                             @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -92,8 +87,7 @@
                     <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                    {{ old('remember') ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                 <label class="form-check-label" for="remember">
                                     {{ __('Remember Me') }}
@@ -123,9 +117,9 @@
 </form>
 @guest
 <script>
-$('#exampleModal').modal({
-    show: true
-})
+    $('#exampleModal').modal({
+        show: true
+    })
 </script>
 @endif
 

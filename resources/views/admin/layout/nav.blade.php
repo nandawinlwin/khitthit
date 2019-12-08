@@ -37,7 +37,7 @@
                         <i class="fas fa-print"></i> Print
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"><i class="fas fa-file-video"></i> Movie Print</a>
+                        <a class="dropdown-item" href="{{url('/print/movie')}}"><i class="fas fa-file-video"></i> Movie Print</a>
                         <a class="dropdown-item" href="{{url('print/series')}}"><i class="fas fa-object-ungroup"></i> Series Print</a>
                     </div>
                 </li>

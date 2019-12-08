@@ -20,7 +20,7 @@ Route::group(['middleware' => 'admin'], function () {
     
 Route::get('/admin','Admin\AdminController@index')->name('Admin');
 Route::get('/setting','Admin\AdminController@setting')->name('Setting');
-Route::post('/apisave','Admin\AdminController@apisave')->name('Setting');
+Route::post('/apisave','Admin\AdminController@apisave');
 
 Route::get('/all_movie','Admin\AdminController@movie');
 Route::get('/all_series','Admin\AdminController@series');
@@ -42,6 +42,7 @@ Route::get('/user/{id}/buy','Admin\AdminController@buylist');
 Route::get('/user/{movie_id}/{user_id}/buy','Admin\AdminController@buylist_save')->name('user.buy');
 
 Route::get('/print','PrintController@print');
+Route::get('/print/movie','PrintController@movie_print');
 Route::get('/print/series','PrintController@series_print');
 Route::get('/print/series/{id}','PrintController@series_print_view');
     
