@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Khit Thit Movie</title>
+    <title>Khit Thit Movie Store</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -86,6 +86,7 @@
             font-size: 18px;
         }
     }
+
     .footer {
         position: fixed;
         left: 0;
@@ -93,7 +94,6 @@
         width: 100%;
         color: white;
     }
-   
     </style>
 </head>
 
@@ -101,8 +101,8 @@
     <div id="app">
 
 
-        <div class="col d-none d-sm-block">
-            <nav class="navbar navbar-expand-md bg-light navbar-light shadow-sm">
+        <div class="col d-none d-md-block mb-4">
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-sm fixed-top ">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <i class="fas fa-home"></i> Khit Thit
@@ -197,7 +197,7 @@
 
         <div>
 
-            <div class="d-block d-sm-none">
+            <div class="d-block d-md-none ">
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <a href="{{url('/')}}"><i class="fa fa-home"></i> Home</a>
@@ -228,7 +228,7 @@
                     </form>
                     @endguest
                 </div>
-                <nav class="navbar navbar-expand-md bg-light navbar-light shadow-sm">
+                <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-sm">
                     <div class="container-fluid">
                         <div class="navbar-header">
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -237,7 +237,7 @@
                                 <span class="navbar-toggler-icon" onclick="openNav()"></span>
                             </button>
                         </div>
-                        <a href="{{url('/search')}}"><i class="fa fa-search" style="font-size:30px"
+                        <a href="{{url('/search')}}"><i class="fa fa-search" style="font-size:30px;color:white;"
                                 aria-hidden="true"></i></a>
 
                     </div>

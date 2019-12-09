@@ -12,7 +12,7 @@ class FrontendController extends Controller
 {
     public function index(){
         //$movies = Movie::where('count','>',0)->orderBy('count', 'desc')->paginate(12);
-        $movies = Movie::where('count','=',0)->orderBy('count', 'desc')->paginate(40);
+        $movies = Movie::where('count','=',0)->orderBy('count', 'desc')->simplePaginate(40);
         return view('welcome',compact('movies'));
     }
 
