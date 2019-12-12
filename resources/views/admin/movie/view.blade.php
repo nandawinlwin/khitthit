@@ -56,7 +56,7 @@
                         $string = str_replace("</p>", "", $string);
 
                         ?>
-                        <p style="wi">{{$string}}</p>
+                        <p style="">{{$string}}</p>
                         </div>
                     </div>
                 </div>

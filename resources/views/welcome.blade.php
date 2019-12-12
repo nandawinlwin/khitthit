@@ -27,15 +27,11 @@
 </style>
 <div class="container">
 
+
     <div class="row">
 
 
         @foreach($movies as $movie)
-
-
-
-
-
 
         <div class="col-6 col-lg-3 col-md-4 col-sm-6 m-0">
             <a href="{{action('FrontendController@view',$movie->id)}}" style="text-decoration: none;color:black;">
@@ -75,10 +71,10 @@
 
 <!-- Modal -->
 <form method="POST" action="{{ route('login') }}">
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade mt-5" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-dark" style="color:white">
                     <h5 class="modal-title" id="exampleModalLabel">{{ __('Login') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

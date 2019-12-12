@@ -1,35 +1,34 @@
 @extends('admin.layout.app')
 @section('title','Setting')
 @section('content')
-<div class="container">
-    <div class="row mt-2">
-        @foreach($movies as $movie)
-        <div class="col-2">
+<div class="container mt-2">
+        <table class="table table-striped table-bordered" id="example" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>KT ID</th>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Country</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($movies as $movie)
 
-            <a href="{{ action('Admin\AdminController@movie_view',$movie->id) }}">
-                <div class="card">
-                    <img class="card-img-top" src="{{$movie->poster}}" alt="Card image" style="width:100%">
-                    <div class="p-2">
+                <tr>
+                    <td>{{$movie->id}}</td>
+                    <td>{{$movie->ktid}}</td>
+                    <td>{{$movie->title}}</td>
+                    <td>{{$movie->year}}</td>
+                    <td>{{$movie->country}}</td>
+                    <td>{{$movie->genre}}</td>
+                </tr>
 
-                        @if($movie->type == 'series')
-                        @if($movie->series_group == 1 )
-                        E-
-                        @elseif($movie->series_group == 2)
-                        K-
-                        @elseif($movie->series_group == 3)
-                        C-
-                        @else
-                        -
-                        @endif
-                        @endif
-                        {{$movie->ktid}} <br>
-                        {{$movie->title}}
-                    </div>
-                </div>
-            </a>
-
-        </div>
-        @endforeach
-    </div>
+                @endforeach
+            </tbody>
+        </table>
 </div>
+
+
 @endsection

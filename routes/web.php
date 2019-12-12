@@ -15,7 +15,6 @@
 Auth::routes();
 
 
-
 Route::group(['middleware' => 'admin'], function () {
     
 Route::get('/admin','Admin\AdminController@index')->name('Admin');

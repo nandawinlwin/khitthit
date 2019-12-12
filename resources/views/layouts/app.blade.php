@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<head>
-    <meta charset="utf-8">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -38,11 +38,16 @@
     </script>
 
 
+<link rel="icon" href="{!! asset('logo.png') !!}"/>
+
 
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style>
+    body{
+        background: #636363;
+    }
     .sidenav {
         height: 100%;
         width: 0;
@@ -120,6 +125,7 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">English Series</a>
                                 <a class="dropdown-item" href="#">Korea Series</a>
+                                <a class="dropdown-item" href="#">Animation</a>
                             </div>
                         </li>
                         <li class="nav-item">

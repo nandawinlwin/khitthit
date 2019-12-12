@@ -17,12 +17,12 @@ class FrontendController extends Controller
     }
 
     public function movie(){
-        $movies = Movie::where('type','movie')->orderBy('ktid', 'desc')->paginate(12);
+        $movies = Movie::where('type','movie')->orderBy('ktid', 'desc')->simplePaginate(40);
         return view('welcome',compact('movies'));
     }
 
     public function series(){
-        $movies = Movie::where('type','series')->orderBy('ktid', 'desc')->paginate(12);
+        $movies = Movie::where('type','series')->orderBy('ktid', 'desc')->simplePaginate(40);
         return view('welcome',compact('movies'));
     }
 
