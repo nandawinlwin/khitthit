@@ -16,9 +16,16 @@ class PrintController extends Controller
         return view('admin.print.movie_print',compact('movies'));
     }
 
-    public function movie_print_view($id){
-        $series = Movie::findOrFail($id);
-        return view('admin.print.movie_print_view',compact('series')); 
+    public function movie_print_view(Request $request){
+        
+        $movies = Movie::where([['ktid','>=',$request->start],['ktid','<=',$request->end]])->select('ktid','title','country')->get();
+        $start = $request->start;
+        $end = $request->end;
+        $type = $request->type;
+        $exp = count($movies) % $type;
+        $temp = (count($movies) - $exp);
+        $page = $temp / $type;
+        return view('admin.print.movie_print_view',compact('movies','start','end','page','exp','type'));
     }
 
     public function series_print(){

@@ -7,29 +7,30 @@
 
     <div class="card mt-2">
         <div class="card-header">
-            <form action="" method="post">
+            <form action="{{action('PrintController@movie_print_view')}}" method="get">
+        
                 <div class="row">
                     <div class="col-3">
                         <div class="form-group">
                             <label for="">Start</label>
-                            <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <input type="text" name="start" id="" class="form-control" placeholder="" aria-describedby="helpId">
                             <small id="helpId" class="text-muted"></small>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label for="">End</label>
-                            <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                            <input type="text" name="end" id="" class="form-control" placeholder="" aria-describedby="helpId">
                             <small id="helpId" class="text-muted"></small>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label for="">Type</label>
-                            <select name="" id="" class="form-control">
-                                <option value="">4 Photo</option>
-                                <option value="">9 Photo</option>
-                                <option value="">16 Photo</option>
+                            <select name="type" id="" class="form-control">
+                                <option value="4">4 Photo</option>
+                                <option value="9">9 Photo</option>
+                                <option value="16">16 Photo</option>
                             </select>
                             <small id="helpId" class="text-muted"></small>
                         </div>
@@ -37,7 +38,7 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="">.</label>
-                            <input type="submit" name="" id="" class="form-control btn btn-primary" value="Print Now" placeholder="" aria-describedby="helpId">
+                            <input type="submit" name="" id="" class="form-control btn btn-primary btnprn" value="Print Now" placeholder="" aria-describedby="helpId">
                             <small id="helpId" class="text-muted"></small>
                         </div>
                     </div>
@@ -96,10 +97,16 @@
 
 </div>
 
-<script>
+<script type="text/javascript">
     function myFunction() {
         window.print();
     }
+
+
+    $(document).ready(function() {
+        $('.btnprn').printPage();
+    });
+
 </script>
 
 @endsection

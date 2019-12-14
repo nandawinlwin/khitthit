@@ -42,6 +42,7 @@ Route::get('/user/{movie_id}/{user_id}/buy','Admin\AdminController@buylist_save'
 
 Route::get('/print','PrintController@print');
 Route::get('/print/movie','PrintController@movie_print');
+Route::get('/print/movie/view','PrintController@movie_print_view');
 Route::get('/print/series','PrintController@series_print');
 Route::get('/print/series/{id}','PrintController@series_print_view');
     

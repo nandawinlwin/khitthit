@@ -182,6 +182,30 @@ class AdminController extends Controller
     }
 
 
+    //animations
+
+
+    public function anamation_create(){
+        
+    }
+
+    public function anamation_show(){
+
+    }
+
+    public function anamation_view($id){
+
+    }
+
+    public function anamation_edit($id){
+
+    }
+
+    public function anamation_update($id){
+
+    }
+
+
 
     //users
     public function users(){
