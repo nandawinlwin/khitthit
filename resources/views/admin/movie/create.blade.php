@@ -24,8 +24,9 @@
 
                     <div class="col-6">
                         <div class="form-group">
+                        <?php $kktid = 0; ?>
                             <label for="">KT ID</label>
-                            <input type="text" name="ktid" id="myInput" id="" class="form-control" placeholder="kt id">
+                            <input type="text" name="ktid" id="ktid" id="" class="form-control">
                         </div>
                     </div>
 
@@ -68,7 +69,6 @@
                 <thead>
                     <tr>
                         <th>KT ID</th>
-                        <th>IMDB ID</th>
                         <th>Name</th>
                         <th>Year</th>
                         <th>Country</th>
@@ -77,10 +77,17 @@
                     </tr>
                 </thead>
                 <tbody id="myDIV">
+                <?php $ktid = 0; $i = 1; ?>
                     @foreach($movies as $movie)
+
+                    @if($i == 1)
+                    <?php $ktid = $movie->ktid+1; ?>
+                    @endif
+
+                    <?php $i++; ?>
+                    
                     <tr>
                         <td scope="row">{{$movie->ktid}}</td>
-                        <td>{{$movie->imdbid}}</td>
                         <td>{{$movie->title}}</td>
                         <td>{{$movie->year}}</td>
                         <td>{{$movie->country}}</td>
@@ -94,6 +101,7 @@
                         </td>
                     </tr>
                     @endforeach
+                    
                 </tbody>
             </table>
         </div>
@@ -103,4 +111,12 @@
     </div>
 
 </div>
+
+                <script>
+                    var ktid = "{{$ktid}}";
+                    $( document ).ready(function() {
+                        document.getElementById('ktid').value = ktid ;
+                    });
+                       
+                </script>
 @endsection

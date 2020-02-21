@@ -76,4 +76,9 @@ class HomeController extends Controller
         $user = Auth::user();
         return view('about',compact('user'));
     }
+
+    public function api(){
+        $movies = Movie::all();
+        return $movies;
+    }
 }

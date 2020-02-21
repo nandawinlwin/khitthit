@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="container mt-3">
+<div class="container">
+    <br>
     <div class="d-none d-sm-block ">
     <div class="card" style="background-color: #636363;color:white">
         <div class="card-header bg-dark" style="color:white">

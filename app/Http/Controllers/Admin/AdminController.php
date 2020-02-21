@@ -9,6 +9,8 @@ use App\Movie;
 use App\User;
 use App\watchlist;
 use App\buylist;
+use App\Genre;
+use App\series;
 
 class AdminController extends Controller
 {
@@ -17,23 +19,25 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        $movies = Movie::where('count','>',0)->orderBy('count', 'desc')->get();
-        return view('admin.admin',compact('movies'));
+    public function index()
+    {
+        $movies = Movie::where('count', '>', 0)->orderBy('count', 'desc')->get();
+        return view('admin.admin', compact('movies'));
     }
 
 
     //Setting
 
-    public function setting(){
+    public function setting()
+    {
         $api = api::all();
         $count = count($api);
         $api_key = api::findOrFail($count);
-        return view('admin.setting',compact('api_key'));
-        
+        return view('admin.setting', compact('api_key'));
     }
 
-    public function apisave(Request $request){
+    public function apisave(Request $request)
+    {
         $api = new api;
         $api->name = 'key';
         $api->value = $request->key;
@@ -44,32 +48,32 @@ class AdminController extends Controller
 
     //Movie
 
-    public function movie(){
-        $movies = Movie::where('type','movie')->orderBy('ktid', 'desc')->get();
-        return view('admin.movie.show',compact('movies'));
+    public function movie()
+    {
+        $movies = Movie::where('type', 'movie')->orderBy('ktid', 'desc')->get();
+        return view('admin.movie.show', compact('movies'));
     }
 
-    public function series(){
-        $movies = Movie::where('type','series')->orderBy('ktid', 'desc')->get();;
-        return view('admin.movie.show',compact('movies'));
-    }
-
-    public function movie_view($id){
+    public function movie_view($id)
+    {
         $movie = Movie::findOrFail($id);
-        return view('admin.movie.view',compact('movie'));
+        return view('admin.movie.view', compact('movie'));
     }
 
-    public function movie_create(){
-        $movies = Movie::where('type','movie')->orderBy('ktid', 'desc')->get();
-        return view('admin.movie.create',compact('movies'));
+    public function movie_create()
+    {
+        $movies = Movie::where('type', 'movie')->orderBy('id', 'desc')->get();
+        return view('admin.movie.create', compact('movies'));
     }
 
-    public function movie_manual(){
-        $movies = Movie::where('type','movie')->orderBy('ktid', 'desc')->get();
-        return view('admin.movie.manual',compact('movies'));
+    public function movie_manual()
+    {
+        $movies = Movie::where('type', 'movie')->orderBy('ktid', 'desc')->get();
+        return view('admin.movie.manual', compact('movies'));
     }
 
-    public function movie_manual_save(Request $request){
+    public function movie_manual_save(Request $request)
+    {
 
         $movie = new Movie;
         $movie->imdbid = $request->imdbid;
@@ -90,11 +94,12 @@ class AdminController extends Controller
         return redirect('movie/create');
     }
 
-    public function movie_create_save(Request $request){
+    public function movie_create_save(Request $request)
+    {
         $api = api::all();
         $count = count($api);
         $api_key = api::findOrFail($count);
-        $data = json_decode(file_get_contents("http://www.omdbapi.com/?i=".$request->imdbid."&apikey=".$api_key->value));
+        $data = json_decode(file_get_contents("http://www.omdbapi.com/?i=" . $request->imdbid . "&apikey=" . $api_key->value));
         $movie = new Movie;
         $movie->imdbid = $request->imdbid;
         $movie->ktid = $request->ktid;
@@ -111,12 +116,27 @@ class AdminController extends Controller
         $movie->imdbrating = $data->imdbRating;
         $movie->type = $data->Type;
         $movie->save();
+
+        $save_genre = Genre::all();
+        $genre = explode(', ', $data->Genre);
+        $i = 0;
+
+        $collection = collect(['taylor', 'abigail', null])->map(function ($name) {
+            return strtoupper($name);
+        })
+        ->reject(function ($name) {
+            return empty($name);
+        });
+
+        
+
         return redirect('movie/create');
     }
 
 
 
-    public function movie_updat(Request $request,$id){
+    public function movie_updat(Request $request, $id)
+    {
 
         $movie = Movie::findOrFail($id);
         $movie->ktid = $request->ktid;
@@ -136,12 +156,14 @@ class AdminController extends Controller
     }
 
 
-    public function movie_edit($id){
+    public function movie_edit($id)
+    {
         $movie = Movie::findOrFail($id);
-        return view('admin.movie.edit',compact('movie'));
+        return view('admin.movie.edit', compact('movie'));
     }
 
-    public function movie_del($id){
+    public function movie_del($id)
+    {
         $movie = Movie::findOrFail($id);
         $movie->delete();
         return back();
@@ -151,93 +173,135 @@ class AdminController extends Controller
     //series
 
 
-    public function series_create(){
-        $movies = Movie::where('type','series')->orderBy('ktid', 'desc')->get();
-        return view('admin.movie.series_create',compact('movies'));
+    public function series_create()
+    {
+        $series = series::all();
+        return view('admin.movie.series_create', compact('series'));
     }
 
-    public function series_create_save(Request $request){
-        $api = api::all();
-        $count = count($api);
-        $api_key = api::findOrFail($count);
-        $data = json_decode(file_get_contents("http://www.omdbapi.com/?i=".$request->imdbid."&apikey=".$api_key->value));
-        $movie = new Movie;
-        $movie->imdbid = $request->imdbid;
-        $movie->ktid = $request->ktid;
-        $movie->series_group = $request->group;
-        $movie->title = $data->Title;
-        $movie->year = $data->Year;
-        $movie->rated = $data->Rated;
-        $movie->runtime = $data->Runtime;
-        $movie->genre = $data->Genre;
-        $movie->director = $data->Director;
-        $movie->actors = $data->Actors;
-        $movie->plot = $data->Plot;
-        $movie->country = $data->Country;
-        $movie->poster = $data->Poster;
-        $movie->imdbrating = $data->imdbRating;
-        $movie->type = $data->Type;
-        $movie->save();
+    public function series_create_save(Request $request)
+    {
+        
+        $series = new series;
+        $series->ktid = $request->ktid;
+        $series->title = $request->title;
+        $series->country = $request->country;
+        $series->season = $request->season;
+        $series->episode = $request->episode;
+        $series->size = $request->size;
+        $series->runtime = $request->time;
+        $series->rating = $request->rating;
+        $series->plot = $request->plot;
+        $series->poster = $request->poster;
+        $series->genre = $request->genre;
+        $series->save();
         return redirect('series/create');
     }
+
+    
+    public function series()
+    {
+        $series = series::all();
+        return view('admin.movie.series_show', compact('series'));
+    }
+
+
+    public function series_view($id){
+        $series = series::findOrFail($id);
+        return view('admin.movie.series_view',compact('series'));
+    }
+
+    public function series_edit($id){
+        $series = series::findOrFail($id);
+        return view('admin.movie.series_edit',compact('series'));
+    }
+
+    public function series_update(Request $request, $id){
+        
+        $series = series::findOrFail($id);
+        $series->ktid = $request->ktid;
+        $series->title = $request->title;
+        $series->country = $request->country;
+        $series->season = $request->season;
+        $series->episode = $request->episode;
+        $series->size = $request->size;
+        $series->runtime = $request->time;
+        $series->rating = $request->rating;
+        $series->plot = $request->plot;
+        $series->poster = $request->poster;
+        $series->genre = $request->genre;
+        $series->update();
+
+        return redirect('all_series');
+    }
+
+    public function series_del($id){
+        $serie = series::findOrFail($id);
+        $serie->delete();
+        return back();
+    }
+
 
 
     //animations
 
 
-    public function anamation_create(){
-        
+    public function anamation_create()
+    {
     }
 
-    public function anamation_show(){
-
+    public function anamation_show()
+    {
     }
 
-    public function anamation_view($id){
-
+    public function anamation_view($id)
+    {
     }
 
-    public function anamation_edit($id){
-
+    public function anamation_edit($id)
+    {
     }
 
-    public function anamation_update($id){
-
+    public function anamation_update($id)
+    {
     }
 
 
 
     //users
-    public function users(){
-        $users = User::where('admin',null)->get();
-        return view('admin.users.users',compact('users'));
+    public function users()
+    {
+        $users = User::where('admin', null)->get();
+        return view('admin.users.users', compact('users'));
     }
 
-    public function user_view($id){
-        $watchlists = watchlist::where('user_id',$id)->get();
+    public function user_view($id)
+    {
+        $watchlists = watchlist::where('user_id', $id)->get();
         $user = User::findOrFail($id);
         $movies = Movie::all();
-        return view('admin.users.view',compact('user','watchlists','movies','id'));
+        return view('admin.users.view', compact('user', 'watchlists', 'movies', 'id'));
     }
 
-    public function buylist($id){
-        $buylists = buylist::where('user_id',$id)->get();
+    public function buylist($id)
+    {
+        $buylists = buylist::where('user_id', $id)->get();
         $user = User::findOrFail($id);
         $movies = Movie::all();
-        return view('admin.users.buy',compact('user','buylists','movies','id'));
-
+        return view('admin.users.buy', compact('user', 'buylists', 'movies', 'id'));
     }
 
-    public function buylist_save($movie_id,$user_id){
+    public function buylist_save($movie_id, $user_id)
+    {
         $movie = Movie::findOrFail($movie_id);
         $i = $movie->count + 1;
         $movie->count = $i;
         $movie->update();
-        
-        $watchlists = watchlist::where([['user_id','=',$user_id],['movie_id','=',$movie_id]])->get();
-        foreach($watchlists as $w){
-                $data = watchlist::findOrFail($w->id);
-                $data->delete();
+
+        $watchlists = watchlist::where([['user_id', '=', $user_id], ['movie_id', '=', $movie_id]])->get();
+        foreach ($watchlists as $w) {
+            $data = watchlist::findOrFail($w->id);
+            $data->delete();
         }
         $buylist = new buylist;
         $buylist->user_id = $user_id;
@@ -246,12 +310,8 @@ class AdminController extends Controller
         $buylist->ktid = $movie->ktid;
         $buylist->save();
 
-        
+
 
         return back();
     }
-
-    
-
-
 }

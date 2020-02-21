@@ -25,6 +25,7 @@ $(document).ready(function() {
            <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                <thead>
                    <tr>
+                      <th>User ID</th>
                        <th>Name</th>
                        <th>Email</th>
                        <th>More</th>
@@ -33,6 +34,7 @@ $(document).ready(function() {
                <tbody  id="myDIV">
                    @foreach($users as $user)
                         <tr>
+                            <td>{{111110+$user->id}}</td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>

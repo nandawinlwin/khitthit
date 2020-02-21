@@ -27,7 +27,6 @@
                 <tbody>
 
                     @foreach($movies as $movie)
-                    @if($movie->type == 'series')
                     <tr>
                         <td scope="row">{{$movie->ktid}}</td>
                         <td>{{$movie->title}}</td>
@@ -36,7 +35,6 @@
                                     class="fas fa-file-powerpoint "></i> View</a>
                         </td>
                     </tr>
-                    @endif
                     @endforeach
                 </tbody>
             </table>

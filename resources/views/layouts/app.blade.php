@@ -58,7 +58,7 @@
         background-color: #efeeee;
         overflow-x: hidden;
         transition: 0.5s;
-        padding-top: 10px;
+        padding-top: 1px;
     }
 
     .sidenav a {
@@ -117,15 +117,17 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/movie')}}"><i class="fa fa-film"></i> Movie</a>
                         </li>
+                        
                         <!-- Dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                                 <i class="fas fa-layer-group"></i> Series
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">English Series</a>
-                                <a class="dropdown-item" href="#">Korea Series</a>
-                                <a class="dropdown-item" href="#">Animation</a>
+                                <a class="dropdown-item" href="{{url('/series')}}/English">English Series</a>
+                                <a class="dropdown-item" href="{{url('/series')}}/Korea">Korea Series</a>
+                                <a class="dropdown-item" href="{{url('/series')}}/China">China Series</a>
+                                <a class="dropdown-item" href="{{url('/series')}}/Thailian">Thailian Series</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -208,9 +210,7 @@
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <a href="{{url('/')}}"><i class="fa fa-home"></i> Home</a>
                     <a href="{{url('/movie')}}"><i class="fa fa-film"></i> Movie</a>
-                    <a href="{{url('/series')}}"> Series</a>
-
-                    <a href="{{url('/search')}}"><i class="fa fa-search"></i> Search</a>
+                    <a href="{{url('/series')}}"><i class="fas fa-layer-group"></i> Series</a>
 
 
 
@@ -243,8 +243,6 @@
                                 <span class="navbar-toggler-icon" onclick="openNav()"></span>
                             </button>
                         </div>
-                        <a href="{{url('/search')}}"><i class="fa fa-search" style="font-size:30px;color:white;"
-                                aria-hidden="true"></i></a>
 
                     </div>
                 </nav>
@@ -252,7 +250,8 @@
             </div>
         </div>
 
-        <main class="py-4">
+        <main class="">
+            <div class="mt-5 d-none d-md-block d-lg-block"></div>
             @yield('content')
         </main>
     </div>
